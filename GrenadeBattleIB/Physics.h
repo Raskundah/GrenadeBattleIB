@@ -25,7 +25,7 @@ class Physics :
 public:
 	Physics();
 
-	void PhysicsSelect(PhysicsType physics);
+	void PhysicsSelect(PhysicsType physics, sf::Time _frameTime);
 
 	bool CheckCollision(Physics other);
 	void SetColliding(bool newColliding);
@@ -54,15 +54,10 @@ private:
 
 	bool m_colliding;
 
-
-
-
 	sf::Vector2f m_twoFramesOldPos;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_acceleration;
 
-	sf::Time _frameTime;
-	sf::Clock _clock;
 };
 
 

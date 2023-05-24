@@ -17,10 +17,9 @@ Physics::Physics()
 
 }
 
-void Physics::PhysicsSelect(PhysicsType physics)
+void Physics::PhysicsSelect(PhysicsType physics, sf::Time _frameTime)
 {
 	const float DRAG_MULT = 10.0f;
-	
 
 	switch (physics)
 	{
@@ -224,7 +223,7 @@ sf::Vector2f Physics::GetCollisionDepth(Physics other)
 
 void Physics::HandleCollision(Physics& other)
 {
-	const float JUMPSPEED = 100;
+	// const float JUMPSPEED = 100;
 
 	sf::Vector2f depth = GetCollisionDepth(other);
 
@@ -233,7 +232,7 @@ void Physics::HandleCollision(Physics& other)
 	if (abs(depth.x) < abs(depth.y))
 	{
 		// move in x direction
-		newPos.x += depth.x;
+		newPos.x += depth.x*1.1f;
 
 		m_velocity.x = 0;
 		m_acceleration.x = 0;
@@ -242,17 +241,19 @@ void Physics::HandleCollision(Physics& other)
 	else
 	{
 		//move in y
-		newPos.y += depth.y;
+		newPos.y += depth.y*1.1f;
 
 		m_velocity.y = 0;
 		m_acceleration.y = 0;
 
 
-		//if collided from above
+		/*if collided from above
 		if (depth.y < 0)
 		{
-			m_velocity.y = -JUMPSPEED;
+			m_velocity.y = -24;
 		}
+
+		*/
 	}
 	SetPosition(newPos);
 }
@@ -317,14 +318,35 @@ void Physics::UpdateAcceleration()
 	m_acceleration.x = 0;
 	m_acceleration.y = GRAVITY;
 
+	int playerOneController = 0;
+	int playerTwoController = 1;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (sf::Joystick::isConnected(playerOneController))
 	{
-		m_acceleration.x = -ACCEL;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		m_acceleration.x = ACCEL;
+		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			m_acceleration.x = -ACCEL;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			m_acceleration.x = ACCEL;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			m_acceleration.y = -ACCEL;
+		}
+		*/
+
+		float axisX = sf::Joystick::getAxisPosition(playerOneController, sf::Joystick::X);
+		//float axisY = sf::Joystick::getAxisPosition(playerOneController, sf::Joystick::Y);
+
+		float deadzone = 25;
+
+		if (abs(axisX) > deadzone)
+			m_acceleration.x = axisX / 100.0f;
+		/*if (abs(axisY) > deadzone)
+			m_acceleration.y = axisY / 100.0f;*/
 	}
 }
 

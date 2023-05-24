@@ -31,11 +31,12 @@ void Player::Update(sf::Time _frameTime)
 {
 	physics = PhysicsType::FORWARD_EULER;
 
-	PhysicsSelect(physics);
+	PhysicsSelect(physics, _frameTime);
 
 }
 
 void Player::HandleCollision(Physics& other)
 {
+	Physics::HandleCollision(other);
 }
 

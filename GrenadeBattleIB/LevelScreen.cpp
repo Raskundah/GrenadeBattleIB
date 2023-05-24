@@ -18,26 +18,29 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 	//TODO: add vectors of object positions.
 
 
-	
-	playerOne.SetPosition(30, 30);	
-	playerTwo.SetPosition(500, 30);
-
 	int maxWidth = newGamePointer->GetWindow()->getSize().x;
+	int maxHeight = newGamePointer->GetWindow()->getSize().y;
 	int width = 0;
+	int height = 0;
 
+
+	playerOne.SetPosition(30, maxHeight-53);
+	playerTwo.SetPosition(maxWidth - 100, maxHeight-53);
 
 	for (int i = 0; width <= maxWidth; ++i)
 	{
-		platforms.push_back(new Platform(sf::Vector2f(width, 900)));
-		platforms.push_back(new Platform(sf::Vector2f(width, 924)));
-		platforms.push_back(new Platform(sf::Vector2f(width, 948)));
+		platforms.push_back(new Platform(sf::Vector2f(width, 0)));
+		platforms.push_back(new Platform(sf::Vector2f(width, maxHeight-48)));
 		width += 24;
 	}
 
-	/*platforms.push_back(new Platform(sf::Vector2f(500, 500)));
-	platforms.push_back(new Platform(sf::Vector2f(900, 500)));
-	platforms.push_back(new Platform(sf::Vector2f(30, 500)));
-	*/
+	for (int i = 0; height <= maxHeight; ++i)
+	{
+		platforms.push_back(new Platform(sf::Vector2f(0, height)));
+		platforms.push_back(new Platform(sf::Vector2f(maxWidth-24, height)));
+		height += 24;
+
+	}
 
 }
 
@@ -50,10 +53,11 @@ void LevelScreen::Update(sf::Time frameTime)
 
 		playerOne.Update(frameTime);
 		playerTwo.Update(frameTime);
-		for (int i = 0; i < platforms.size(); ++i)
+		/*for (int i = 0; i < platforms.size(); ++i)
 		{
 			platforms[i]->Update(frameTime);
 		}
+		*/
 
 		//default colllisiuon states
 
@@ -69,7 +73,7 @@ void LevelScreen::Update(sf::Time frameTime)
 				playerOne.SetColliding(true);
 				platforms[i]->SetColliding(true);
 				playerOne.HandleCollision(*platforms[i]);
-				platforms[i]->HandleCollision(playerOne);
+				//platforms[i]->HandleCollision(playerOne);
 			}
 
 			if (platforms[i]->CheckCollision(playerTwo))
@@ -77,7 +81,7 @@ void LevelScreen::Update(sf::Time frameTime)
 				playerTwo.SetColliding(true);
 				platforms[i]->SetColliding(true);
 				playerTwo.HandleCollision(*platforms[i]);
-				platforms[i]->HandleCollision(playerTwo);
+				// platforms[i]->HandleCollision(playerTwo);
 			}
 		}
 
