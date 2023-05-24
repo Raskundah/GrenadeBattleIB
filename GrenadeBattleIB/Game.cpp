@@ -8,7 +8,7 @@ Game::Game()
 	, currentScreen(nullptr)
 {
 	// Window setup
-	window.setMouseCursorVisible(false);
+	window.setMouseCursorVisible(true);
 
 	// TODO: Setup screens
 	currentScreen = new LevelScreen(this);

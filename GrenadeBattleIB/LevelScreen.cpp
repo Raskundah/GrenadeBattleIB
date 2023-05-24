@@ -2,6 +2,7 @@
 #include "AssetManager.h"
 #include "Platform.h"
 #include "Game.h"
+#include "Physics.h"
 
 LevelScreen::LevelScreen(Game* newGamePointer)
 	: Screen(newGamePointer)
@@ -57,6 +58,7 @@ void LevelScreen::Update(sf::Time frameTime)
 		//default colllisiuon states
 
 		playerOne.SetColliding(false);
+		playerTwo.SetColliding(false);
 
 		for (int i = 0; i < platforms.size(); ++i)
 		{

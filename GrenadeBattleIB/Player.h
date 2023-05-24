@@ -1,25 +1,24 @@
 #pragma once
 #include "SpriteObject.h"
+#include "Physics.h"
 class Player :
-    public SpriteObject
+    public Physics
 {
 public:
     Player(int playerNumber);
 
-
     void Update(sf::Time _frameTime) override;
 
-    void HandleCollision(SpriteObject& other) override;
-    
+    void HandleCollision(Physics& other) override;
+
+
+
+
 protected:
+
+   
     int m_playerNumber;
 
 private:
 
-    void UpdateAcceleration();
-
-    sf::Vector2f m_twoFramesOldPos;
-    sf::Vector2f m_velocity;
-    sf::Vector2f m_acceleration;
 };
-

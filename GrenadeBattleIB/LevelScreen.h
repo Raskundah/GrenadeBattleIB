@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "EndPanel.h"
+#include "Physics.h"
 
 class Game;
 class Platform;
