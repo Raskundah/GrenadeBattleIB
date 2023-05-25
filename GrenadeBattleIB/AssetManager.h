@@ -19,5 +19,6 @@ private:
 	static std::map<std::string, sf::Font> fonts;
 	static std::map<std::string, sf::SoundBuffer> soundBuffers;
 
+	//test push comment
 };
 
