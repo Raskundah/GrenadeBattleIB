@@ -297,6 +297,11 @@ float Physics::GetCircleColliderRadius()
 
 sf::FloatRect Physics::GetAABB()
 {
+	//this establishes the bounds of the object requiring a collision box, then multiplies it by the given scalar on a per case basisd.
+	// it also centres the box by getting the centre and aligning the left and top to that centre. scalar vector is found when the non abstract object is called.
+
+	// the reason we take the left bound and the top bound and multiply them by 0.5 and subtract the heigh and width is this gives us the centre of the sprite.
+
 	sf::FloatRect bounds = m_sprite.getGlobalBounds();
 
 	bounds.width = bounds.width * m_CollisionScale.x;
