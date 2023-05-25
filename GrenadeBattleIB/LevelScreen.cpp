@@ -24,8 +24,8 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 	int height = 0;
 
 
-	playerOne.SetPosition(30, maxHeight-53);
-	playerTwo.SetPosition(maxWidth - 100, maxHeight-53);
+	playerOne.SetPosition(30, maxHeight-53-100);
+	playerTwo.SetPosition(maxWidth - 100, maxHeight-53-100);
 
 	for (int i = 0; width <= maxWidth; ++i)
 	{

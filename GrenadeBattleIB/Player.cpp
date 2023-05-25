@@ -6,9 +6,16 @@
 Player::Player(int playerNumber)
 	: Physics()
 	, m_playerNumber(playerNumber)
-
+	, pips()
 	
 {
+	for (int i = 0; i < 11; ++i)
+	{
+		pips.push_back(sf::Sprite());
+		pips[i].setTexture((AssetManager::RequestTexture("Assets/pip.png")));
+	
+	}
+
 	if (!playerNumber)
 	{
 		m_sprite.setTexture(AssetManager::RequestTexture("Assets/player_1_stand.png"));
@@ -29,10 +36,30 @@ Player::Player(int playerNumber)
 
 void Player::Update(sf::Time _frameTime)
 {
+	Physics::Update(_frameTime);
+
 	physics = PhysicsType::FORWARD_EULER;
+
+	 pipVelocity = sf::Vector2f(sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::U) *10, sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::V) *10 );
+
+	 
 
 	PhysicsSelect(physics, _frameTime);
 
+}
+
+void Player::Draw(sf::RenderTarget& _target)
+{
+	Physics::Draw(_target);
+
+	float faketime = 0;
+
+	for (int i = 0; i < pips.size(); ++i)
+	{
+		pips[i].setPosition(GetPipPosition(faketime));
+		_target.draw(pips[i]);
+		faketime += 0.05f;
+	}
 }
 
 void Player::HandleCollision(Physics& other)
@@ -40,3 +67,12 @@ void Player::HandleCollision(Physics& other)
 	Physics::HandleCollision(other);
 }
 
+sf::Vector2f Player::GetPipPosition(float fakeTime) // This function is used to handle the prediction of grenade paths
+{	
+	sf::Vector2f gravity(0, GRAVITY);
+
+		sf::Vector2f pipPos(gravity * fakeTime * fakeTime * 0.5f + pipVelocity * fakeTime + GetPosition());
+
+		return pipPos;
+
+}

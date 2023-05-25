@@ -6,13 +6,15 @@
 
 Physics::Physics()
 	: SpriteObject()
+	, physics(PhysicsType::FORWARD_EULER)
 	, m_colliding(false)
 	, m_CollisionScale(1, 1)
 	, m_CollisionOffset(0, 0)
 	, collisionType(CollisionType::AABB)
 	, m_twoFramesOldPos(GetPosition())
 	, m_velocity()
-	, m_acceleration(100, 100)
+	, m_acceleration(0, 0)
+	, GRAVITY(1000)
 {
 
 }
@@ -106,7 +108,7 @@ void Physics::PhysicsSelect(PhysicsType physics, sf::Time _frameTime)
 		break;
 	}
 
-	m_sprite.setPosition(GetPosition());
+	//m_sprite.setPosition(GetPosition());
 }
 
 bool Physics::CheckCollision(Physics other)
@@ -192,13 +194,13 @@ bool Physics::CheckCollision(Physics other)
 
 }
 
-void Physics::SetColliding(bool newColliding)
+void Physics::SetColliding(bool newColliding) //boolean logic for setting if an object is colliding to trigger behaviour.
 {
 	m_colliding = newColliding;
 
 }
 
-sf::Vector2f Physics::GetCollisionDepth(Physics other)
+sf::Vector2f Physics::GetCollisionDepth(Physics other) //calculates how much a collision box or circle has overlapped with another collider.
 {
 	sf::FloatRect thisAABB = GetAABB();
 	sf::FloatRect otheAABB = other.GetAABB();
@@ -258,13 +260,17 @@ void Physics::HandleCollision(Physics& other)
 	SetPosition(newPos);
 }
 
-void Physics::SetAlive(bool _alive)
+
+
+
+
+void Physics::SetAlive(bool _alive) //this allows a physics element to present whether it is alive or dead for collision and rendering purposes.
 {
 	m_isAlive = _alive;
 
 }
 
-sf::Vector2f Physics::GetCollsionCentre()
+sf::Vector2f Physics::GetCollsionCentre() // this function is designed to get a circle collider's centre and place that centre position at the centre of the sprite.
 {
 
 	sf::Vector2f centre = m_position;
@@ -279,7 +285,7 @@ sf::Vector2f Physics::GetCollsionCentre()
 	return centre;
 }
 
-float Physics::GetCircleColliderRadius()
+float Physics::GetCircleColliderRadius() //calculates the radius of a cirlce collision.
 {
 	sf::FloatRect bounds = m_sprite.getGlobalBounds();
 
@@ -316,32 +322,33 @@ sf::FloatRect Physics::GetAABB()
 	return bounds;
 }
 
-void Physics::UpdateAcceleration()
+void Physics::UpdateAcceleration() //used to update the object's acceleration as part of movement code.
 {
 	const float ACCEL = 10000;
-	const float GRAVITY = 1000;
 	m_acceleration.x = 0;
-	m_acceleration.y = GRAVITY;
+	//m_acceleration.y = GRAVITY;
 
 	int playerOneController = 0;
 	int playerTwoController = 1;
 
-	if (sf::Joystick::isConnected(playerOneController))
+	/*
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			m_acceleration.x = -ACCEL;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			m_acceleration.x = ACCEL;
-		}
+		m_acceleration.x = -ACCEL;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		m_acceleration.x = ACCEL;
+	}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		{
-			m_acceleration.y = -ACCEL;
-		}
-		*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		m_acceleration.y = -ACCEL;
+	}
+	*/
+	if (sf::Joystick::isConnected(playerOneController)) // handles joystick input.
+	{
+		
 
 		float axisX = sf::Joystick::getAxisPosition(playerOneController, sf::Joystick::X);
 		//float axisY = sf::Joystick::getAxisPosition(playerOneController, sf::Joystick::Y);
@@ -349,7 +356,7 @@ void Physics::UpdateAcceleration()
 		float deadzone = 25;
 
 		if (abs(axisX) > deadzone)
-			m_acceleration.x = axisX / 100.0f;
+			m_acceleration.x = ACCEL*axisX / 100.0f;
 		/*if (abs(axisY) > deadzone)
 			m_acceleration.y = axisY / 100.0f;*/
 	}

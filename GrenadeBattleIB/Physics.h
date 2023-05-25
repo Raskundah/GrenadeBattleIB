@@ -33,6 +33,7 @@ public:
 	sf::Vector2f GetCollisionDepth(Physics other);
 	virtual void HandleCollision(Physics& other);
 
+
 	void SetAlive(bool _alive);
 
 
@@ -43,6 +44,8 @@ public:
 protected:
 
 	PhysicsType physics;
+	const float GRAVITY;
+
 
 private:
 
@@ -58,6 +61,7 @@ private:
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_acceleration;
 
+	
 };
 
 
