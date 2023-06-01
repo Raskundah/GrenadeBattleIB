@@ -1,12 +1,14 @@
 #include "Player.h"
 #include "AssetManager.h"
 #include "Physics.h"
+#include "Grenade.h";
 
 
 Player::Player(int playerNumber)
 	: Physics()
 	, m_playerNumber(playerNumber)
 	, pips()
+	, shootCooldown(sf::seconds(2.5f))
 	
 {
 	for (int i = 0; i < 11; ++i)
@@ -46,6 +48,11 @@ void Player::Update(sf::Time _frameTime)
 
 	PhysicsSelect(physics, _frameTime);
 
+	if (sf::Joystick::isButtonPressed(m_playerNumber, 0) )
+	{
+		Shoot(m_playerNumber);
+	}
+
 }
 
 void Player::Draw(sf::RenderTarget& _target)
@@ -75,4 +82,20 @@ sf::Vector2f Player::GetPipPosition(float fakeTime) // This function is used to 
 
 		return pipPos;
 
+}
+
+void Player::Shoot(int playerNum)
+{
+	m_playerNumber = playerNum;
+
+	if (m_playerNumber && shootCooldownTimer.getElapsedTime() >= shootCooldown)
+	{
+		level->ShootGrenade(m_position, m_velocity , 1);
+		shootCooldownTimer.restart();
+	}
+
+	if (!m_playerNumber && shootCooldowntimerTwo.getElapsedTime() >= shootCooldown)
+	{
+		level->ShootGrenade(m_position, m_velocity , 0);
+	}
 }

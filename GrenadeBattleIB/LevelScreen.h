@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "EndPanel.h"
 #include "Physics.h"
+#include "Grenade.h"
 
 class Game;
 class Platform;
@@ -19,16 +20,19 @@ public:
     void Draw(sf::RenderTarget& target) override;
 
     void TriggerEndState(bool _win);
+    void ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int playerID);
 
 
 private:
 
     Player playerOne;
     Player playerTwo;
+
     EndPanel endPanel;
     bool gameRunning;
 
     std::vector<Platform*> platforms;
+    std::vector<Grenade> grenades;
     
 };
 

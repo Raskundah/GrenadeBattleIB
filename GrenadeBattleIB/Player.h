@@ -1,6 +1,9 @@
 #pragma once
 #include "SpriteObject.h"
 #include "Physics.h"
+#include "LevelScreen.h"
+
+class Level;
 
 class Player :
     public Physics
@@ -15,6 +18,8 @@ public:
 
     sf::Vector2f GetPipPosition(float fakeTime);
 
+    void Shoot(int playerNum);
+
 protected:
 
     sf::Vector2f pipVelocity;
@@ -23,5 +28,14 @@ protected:
 
     private:
 
+        LevelScreen* level;
+
         std::vector<sf::Sprite> pips;
+
+        sf::Time shootCooldown;
+        sf::Clock shootCooldownTimer;
+        sf::Clock shootCooldowntimerTwo;
+        
+
+        
 };

@@ -45,6 +45,10 @@ protected:
 
 	PhysicsType physics;
 	const float GRAVITY;
+	sf::Vector2f m_velocity;
+	sf::Vector2f m_twoFramesOldPos;
+	sf::Vector2f m_acceleration;
+
 
 
 private:
@@ -56,11 +60,6 @@ private:
 	void UpdateAcceleration();
 
 	bool m_colliding;
-
-	sf::Vector2f m_twoFramesOldPos;
-	sf::Vector2f m_velocity;
-	sf::Vector2f m_acceleration;
-
 	
 };
 

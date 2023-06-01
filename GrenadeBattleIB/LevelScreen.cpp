@@ -23,7 +23,6 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 	int width = 0;
 	int height = 0;
 
-
 	playerOne.SetPosition(30, maxHeight-53-100);
 	playerTwo.SetPosition(maxWidth - 100, maxHeight-53-100);
 
@@ -49,15 +48,17 @@ void LevelScreen::Update(sf::Time frameTime)
 	if (gameRunning)
 	{
 
+
+
 		//update moving positions
 
 		playerOne.Update(frameTime);
 		playerTwo.Update(frameTime);
-		/*for (int i = 0; i < platforms.size(); ++i)
+		for (int i = 0; i < grenades.size(); ++i)
 		{
-			platforms[i]->Update(frameTime);
+			grenades[i].Update(frameTime);
 		}
-		*/
+		
 
 		//default colllisiuon states
 
@@ -100,6 +101,12 @@ void LevelScreen::Draw(sf::RenderTarget& _target)
 	{
 		platforms[i]->Draw(_target);
 	}
+
+	for (int i = 0; i < grenades.size(); ++i)
+	{
+		grenades[i].Draw(_target);
+	}
+
 	playerOne.Draw(_target);
 	playerTwo.Draw(_target);
 
@@ -113,4 +120,12 @@ void LevelScreen::TriggerEndState(bool _win)
 {
 	gameRunning = false;
 	endPanel.StartAnimation();
+}
+
+void LevelScreen::ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int playerID)
+{
+	Grenade newNade(playerID);
+	newNade.SetPosition(position);
+	newNade.FireGrenade(velocity);
+	grenades.push_back(newNade);
 }
