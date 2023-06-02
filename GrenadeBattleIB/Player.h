@@ -1,15 +1,14 @@
 #pragma once
 #include "SpriteObject.h"
 #include "Physics.h"
-#include "LevelScreen.h"
 
-class Level;
+class LevelScreen;
 
 class Player :
     public Physics
 {
 public:
-    Player(int playerNumber);
+    Player(int playerNumber, LevelScreen* level);
 
     void Update(sf::Time _frameTime) override;
     void Draw(sf::RenderTarget& _target) override;

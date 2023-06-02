@@ -6,8 +6,8 @@
 
 LevelScreen::LevelScreen(Game* newGamePointer)
 	: Screen(newGamePointer)
-	, playerOne(0)
-	, playerTwo(1)
+	, playerOne(0, this)
+	, playerTwo(1, this)
 	, platforms()
 
 	, endPanel(newGamePointer->GetWindow())
@@ -16,7 +16,6 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 	//default positions for non dynamically allocated and test objects.
 
 	//TODO: add vectors of object positions.
-
 
 	int maxWidth = newGamePointer->GetWindow()->getSize().x;
 	int maxHeight = newGamePointer->GetWindow()->getSize().y;

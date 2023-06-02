@@ -1,10 +1,10 @@
 #pragma once
 #include "Screen.h"
 #include <SFML/Graphics.hpp>
-#include "Player.h"
 #include "EndPanel.h"
 #include "Physics.h"
 #include "Grenade.h"
+#include "Player.h"
 
 class Game;
 class Platform;

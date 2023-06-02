@@ -3,11 +3,13 @@
 #include "Physics.h"
 #include "Grenade.h";
 
+#include "LevelScreen.h"
 
-Player::Player(int playerNumber)
+Player::Player(int playerNumber, LevelScreen* level)
 	: Physics()
 	, m_playerNumber(playerNumber)
 	, pips()
+	, level(level)
 	, shootCooldown(sf::seconds(2.5f))
 	
 {
@@ -33,7 +35,6 @@ Player::Player(int playerNumber)
 
 	collisionType = CollisionType::CIRCLE;
 
-	
 }
 
 void Player::Update(sf::Time _frameTime)
@@ -81,7 +82,6 @@ sf::Vector2f Player::GetPipPosition(float fakeTime) // This function is used to 
 		sf::Vector2f pipPos(gravity * fakeTime * fakeTime * 0.5f + pipVelocity * fakeTime + GetPosition());
 
 		return pipPos;
-
 }
 
 void Player::Shoot(int playerNum)
@@ -97,5 +97,6 @@ void Player::Shoot(int playerNum)
 	if (!m_playerNumber && shootCooldowntimerTwo.getElapsedTime() >= shootCooldown)
 	{
 		level->ShootGrenade(m_position, m_velocity , 0);
+		shootCooldowntimerTwo.restart();
 	}
 }
