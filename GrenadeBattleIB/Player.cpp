@@ -40,6 +40,7 @@ Player::Player(int playerNumber, LevelScreen* level)
 void Player::Update(sf::Time _frameTime)
 {
 	Physics::Update(_frameTime);
+	
 
 	physics = PhysicsType::FORWARD_EULER;
 
@@ -91,7 +92,7 @@ void Player::Shoot(int playerNum)
 	if (m_playerNumber && shootCooldownTimer.getElapsedTime() >= shootCooldown)
 	{
 		level->ShootGrenade(m_position, m_velocity , 1);
-		shootCooldownTimer.restart();
+		shootCooldownTimer.restart();		
 	}
 
 	if (!m_playerNumber && shootCooldowntimerTwo.getElapsedTime() >= shootCooldown)

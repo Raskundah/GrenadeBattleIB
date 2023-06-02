@@ -9,6 +9,8 @@ Grenade::Grenade(int _whichPlayer)
 
 }
 
+
+
 void Grenade::FireGrenade(sf::Vector2f fireVel)
 {
 	m_velocity = fireVel;

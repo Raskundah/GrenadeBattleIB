@@ -9,7 +9,6 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 	, playerOne(0, this)
 	, playerTwo(1, this)
 	, platforms()
-
 	, endPanel(newGamePointer->GetWindow())
 	, gameRunning(true)
 {
@@ -22,8 +21,8 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 	int width = 0;
 	int height = 0;
 
-	playerOne.SetPosition(30, maxHeight-53-100);
-	playerTwo.SetPosition(maxWidth - 100, maxHeight-53-100);
+	playerOne.SetPosition(30, maxHeight-53);
+	playerTwo.SetPosition(maxWidth - 100, maxHeight-53);
 
 	for (int i = 0; width <= maxWidth; ++i)
 	{
@@ -46,9 +45,6 @@ void LevelScreen::Update(sf::Time frameTime)
 {
 	if (gameRunning)
 	{
-
-
-
 		//update moving positions
 
 		playerOne.Update(frameTime);
@@ -56,9 +52,7 @@ void LevelScreen::Update(sf::Time frameTime)
 		for (int i = 0; i < grenades.size(); ++i)
 		{
 			grenades[i].Update(frameTime);
-		}
-		
-
+		}	
 		//default colllisiuon states
 
 		playerOne.SetColliding(false);
@@ -84,12 +78,10 @@ void LevelScreen::Update(sf::Time frameTime)
 				// platforms[i]->HandleCollision(playerTwo);
 			}
 		}
-
-		
+	
 	}
 
 		endPanel.Update(frameTime);
-
 }
 
 //draw all objects to game window
