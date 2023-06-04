@@ -7,7 +7,7 @@ public:
 
     Grenade(int _whichPlayer);
     void FireGrenade(sf::Vector2f fireVel);
-    void UpdatePosition();
+    void UpdatePosition(sf::Time _frameTime);
     
 private:
     int whichPlayer;

@@ -16,6 +16,7 @@ public:
     void HandleCollision(Physics& other) override;
 
     sf::Vector2f GetPipPosition(float fakeTime);
+    
 
     void Shoot(int playerNum);
 
