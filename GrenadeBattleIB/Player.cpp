@@ -33,7 +33,7 @@ Player::Player(int playerNumber, LevelScreen* level)
 	m_CollisionOffset = sf::Vector2f(0, 0);
 	m_CollisionScale = sf::Vector2f(1.0f, 1.0f);
 
-	collisionType = CollisionType::CIRCLE;
+	collisionType = CollisionType::AABB;
 
 }
 
@@ -85,19 +85,38 @@ sf::Vector2f Player::GetPipPosition(float fakeTime) // This function is used to 
 		return pipPos;
 }
 
+void Player::UpdateAcceleration()
+{
+	Physics::UpdateAcceleration();
+	
+	if (sf::Joystick::isConnected(m_playerNumber)) // handles joystick input.
+	{
+
+		float axisX = sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::X);
+		//float axisY = sf::Joystick::getAxisPosition(playerOneController, sf::Joystick::Y);
+
+		float deadzone = 25;
+
+		if (abs(axisX) > deadzone)
+			m_acceleration.x = ACCEL * axisX / 100.0f;
+		/*if (abs(axisY) > deadzone)
+			m_acceleration.y = axisY / 100.0f;*/
+	}
+}
+
 void Player::Shoot(int playerNum)
 {
 	m_playerNumber = playerNum;
 
 	if (m_playerNumber && shootCooldownTimer.getElapsedTime() >= shootCooldown)
 	{
-		level->ShootGrenade(m_position, m_velocity , 1);
+		level->ShootGrenade(pips[0].getPosition(), m_velocity , 1);
 		shootCooldownTimer.restart();		
 	}
 
 	if (!m_playerNumber && shootCooldowntimerTwo.getElapsedTime() >= shootCooldown)
 	{
-		level->ShootGrenade(m_position, m_velocity , 0);
+		level->ShootGrenade(pips[0].getPosition(), m_velocity , 0);
 		shootCooldowntimerTwo.restart();
 	}
 }

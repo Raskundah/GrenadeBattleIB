@@ -33,6 +33,8 @@ public:
 	sf::Vector2f GetCollisionDepth(Physics other);
 	virtual void HandleCollision(Physics& other);
 
+	virtual void UpdateAcceleration();
+
 
 	void SetAlive(bool _alive);
 
@@ -44,12 +46,10 @@ public:
 protected:
 
 	PhysicsType physics;
-	const float GRAVITY;
+	const float GRAVITY, ACCEL;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_twoFramesOldPos;
 	sf::Vector2f m_acceleration;
-
-
 
 private:
 
@@ -57,9 +57,10 @@ private:
 	float GetCircleColliderRadius();
 	sf::FloatRect GetAABB();
 
-	void UpdateAcceleration();
 
 	bool m_colliding;
+
+	
 	
 };
 

@@ -15,6 +15,8 @@ Physics::Physics()
 	, m_velocity()
 	, m_acceleration(0, 0)
 	, GRAVITY(1000)
+	, ACCEL(10000)
+
 {
 
 }
@@ -324,42 +326,11 @@ sf::FloatRect Physics::GetAABB()
 
 void Physics::UpdateAcceleration() //used to update the object's acceleration as part of movement code.
 {
-	const float ACCEL = 10000;
 	m_acceleration.x = 0;
-	//m_acceleration.y = GRAVITY;
+	m_acceleration.y += GRAVITY;
 
-	int playerOneController = 0;
-	int playerTwoController = 1;
-
-	/*
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		m_acceleration.x = -ACCEL;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		m_acceleration.x = ACCEL;
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-	{
-		m_acceleration.y = -ACCEL;
-	}
-	*/
-	if (sf::Joystick::isConnected(playerOneController)) // handles joystick input.
-	{
-		
-
-		float axisX = sf::Joystick::getAxisPosition(playerOneController, sf::Joystick::X);
-		//float axisY = sf::Joystick::getAxisPosition(playerOneController, sf::Joystick::Y);
-
-		float deadzone = 25;
-
-		if (abs(axisX) > deadzone)
-			m_acceleration.x = ACCEL*axisX / 100.0f;
-		/*if (abs(axisY) > deadzone)
-			m_acceleration.y = axisY / 100.0f;*/
-	}
+	
+	
 }
 
 

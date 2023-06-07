@@ -6,8 +6,8 @@
 
 LevelScreen::LevelScreen(Game* newGamePointer)
 	: Screen(newGamePointer)
-	, playerOne(0, this)
-	, playerTwo(1, this)
+	, playerOne(1, this)
+	, playerTwo(0, this)
 	, platforms()
 	, endPanel(newGamePointer->GetWindow())
 	, gameRunning(true)
@@ -39,12 +39,36 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 
 	}
 
+	width = 0;
+	height = 0;
+
+	for (int i = 0; i < 10; ++i)
+	{
+		platforms.push_back(new Platform(sf::Vector2f(maxWidth *0.4f + width, maxHeight *0.75f )));
+		width += 24;
+	}
+
+	width = 0;
+
+	for (int i = 0; i < 5; ++i)
+	{
+		platforms.push_back(new Platform(sf::Vector2f(maxWidth *0.6f + width, maxHeight * 0.75f)));
+		platforms.push_back(new Platform(sf::Vector2f(maxWidth * 0.2f + width, maxHeight * 0.75f)));
+
+		width += 24;
+	}
+
+	width = 0;
+
+	
 }
 
 void LevelScreen::Update(sf::Time frameTime)
 {
 	if (gameRunning)
 	{
+		UpdateGrenade(0);
+
 		//update moving positions
 
 		playerOne.Update(frameTime);
@@ -93,10 +117,7 @@ void LevelScreen::Draw(sf::RenderTarget& _target)
 		platforms[i]->Draw(_target);
 	}
 
-	for (int i = 0; i < grenades.size(); ++i)
-	{
-		grenades[i].Draw(_target);
-	}
+	
 
 	playerOne.Draw(_target);
 	playerTwo.Draw(_target);
@@ -104,6 +125,11 @@ void LevelScreen::Draw(sf::RenderTarget& _target)
 	if (!gameRunning)
 	{
 		endPanel.Draw(_target);
+	}
+
+	for (int i = 0; i < grenades.size(); ++i)
+	{
+		grenades[i].Draw(_target);
 	}
 }
 
@@ -119,4 +145,13 @@ void LevelScreen::ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int
 	newNade.SetPosition(position);
 	newNade.FireGrenade(velocity);
 	grenades.push_back(newNade);
+}
+
+void LevelScreen::UpdateGrenade(int fakeTime)
+{
+	for (int i = 0; i < grenades.size(); ++i)
+	{
+		grenades[i].SetPosition(playerOne.GetPipPosition(fakeTime));
+		fakeTime += 0.05;
+	}
 }
