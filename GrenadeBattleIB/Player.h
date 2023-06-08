@@ -20,7 +20,7 @@ public:
     void UpdateAcceleration() override;
     
 
-    void Shoot(int playerNum);
+    void Shoot();
 
 protected:
 

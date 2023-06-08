@@ -21,7 +21,6 @@ public:
 
     void TriggerEndState(bool _win);
     void ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int playerID);
-    void UpdateGrenade(int fakeTime);
 
 
 private:

@@ -26,6 +26,7 @@ public:
 	Physics();
 
 	void PhysicsSelect(PhysicsType physics, sf::Time _frameTime);
+	void Update(sf::Time _frameTime);
 
 	bool CheckCollision(Physics other);
 	void SetColliding(bool newColliding);
@@ -50,6 +51,7 @@ protected:
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_twoFramesOldPos;
 	sf::Vector2f m_acceleration;
+	bool applyDrag;
 
 private:
 
@@ -59,6 +61,7 @@ private:
 
 
 	bool m_colliding;
+
 
 	
 	

@@ -6,23 +6,22 @@
 
 LevelScreen::LevelScreen(Game* newGamePointer)
 	: Screen(newGamePointer)
-	, playerOne(1, this)
-	, playerTwo(0, this)
+	, playerOne(0, this)
+	, playerTwo(1, this)
 	, platforms()
 	, endPanel(newGamePointer->GetWindow())
 	, gameRunning(true)
 {
 	//default positions for non dynamically allocated and test objects.
 
-	//TODO: add vectors of object positions.
 
 	int maxWidth = newGamePointer->GetWindow()->getSize().x;
 	int maxHeight = newGamePointer->GetWindow()->getSize().y;
 	int width = 0;
 	int height = 0;
 
-	playerOne.SetPosition(30, maxHeight-53);
-	playerTwo.SetPosition(maxWidth - 100, maxHeight-53);
+	playerOne.SetPosition(30, maxHeight-400);
+	playerTwo.SetPosition(maxWidth - 100, maxHeight-400);
 
 	for (int i = 0; width <= maxWidth; ++i)
 	{
@@ -67,7 +66,6 @@ void LevelScreen::Update(sf::Time frameTime)
 {
 	if (gameRunning)
 	{
-		UpdateGrenade(0);
 
 		//update moving positions
 
@@ -115,9 +113,7 @@ void LevelScreen::Draw(sf::RenderTarget& _target)
 	for (int i = 0; i < platforms.size(); ++i)
 	{
 		platforms[i]->Draw(_target);
-	}
-
-	
+	}	
 
 	playerOne.Draw(_target);
 	playerTwo.Draw(_target);
@@ -145,13 +141,4 @@ void LevelScreen::ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int
 	newNade.SetPosition(position);
 	newNade.FireGrenade(velocity);
 	grenades.push_back(newNade);
-}
-
-void LevelScreen::UpdateGrenade(int fakeTime)
-{
-	for (int i = 0; i < grenades.size(); ++i)
-	{
-		grenades[i].SetPosition(playerOne.GetPipPosition(fakeTime));
-		fakeTime += 0.05;
-	}
 }

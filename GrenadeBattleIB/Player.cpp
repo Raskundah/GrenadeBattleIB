@@ -42,17 +42,15 @@ void Player::Update(sf::Time _frameTime)
 	Physics::Update(_frameTime);
 	
 
-	physics = PhysicsType::FORWARD_EULER;
+	//physics = PhysicsType::FORWARD_EULER;
 
-	 pipVelocity = sf::Vector2f(sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::U) *10, sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::V) *10 );
+	pipVelocity = sf::Vector2f(sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::U) *100, sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::V) *100 ); 
 
-	 
-
-	PhysicsSelect(physics, _frameTime);
+	//PhysicsSelect(physics, _frameTime);
 
 	if (sf::Joystick::isButtonPressed(m_playerNumber, 0) )
 	{
-		Shoot(m_playerNumber);
+		Shoot();
 	}
 
 }
@@ -104,19 +102,11 @@ void Player::UpdateAcceleration()
 	}
 }
 
-void Player::Shoot(int playerNum)
+void Player::Shoot()
 {
-	m_playerNumber = playerNum;
-
-	if (m_playerNumber && shootCooldownTimer.getElapsedTime() >= shootCooldown)
+	if (shootCooldownTimer.getElapsedTime() >= shootCooldown)
 	{
-		level->ShootGrenade(pips[0].getPosition(), m_velocity , 1);
+		level->ShootGrenade(GetPosition(), pipVelocity , m_playerNumber);
 		shootCooldownTimer.restart();		
-	}
-
-	if (!m_playerNumber && shootCooldowntimerTwo.getElapsedTime() >= shootCooldown)
-	{
-		level->ShootGrenade(pips[0].getPosition(), m_velocity , 0);
-		shootCooldowntimerTwo.restart();
 	}
 }

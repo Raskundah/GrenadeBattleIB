@@ -14,8 +14,10 @@ Physics::Physics()
 	, m_twoFramesOldPos(GetPosition())
 	, m_velocity()
 	, m_acceleration(0, 0)
-	, GRAVITY(1000)
+	, GRAVITY(10000)
 	, ACCEL(10000)
+	, applyDrag(true)
+
 
 {
 
@@ -33,6 +35,7 @@ void Physics::PhysicsSelect(PhysicsType physics, sf::Time _frameTime)
 
 		m_velocity = m_velocity + m_acceleration * _frameTime.asSeconds();
 
+		if(applyDrag)
 		m_velocity.x = m_velocity.x - m_velocity.x * DRAG_MULT * _frameTime.asSeconds();
 
 
@@ -110,7 +113,11 @@ void Physics::PhysicsSelect(PhysicsType physics, sf::Time _frameTime)
 		break;
 	}
 
-	//m_sprite.setPosition(GetPosition());
+}
+
+void Physics::Update(sf::Time _frameTime)
+{
+	PhysicsSelect(physics, _frameTime);
 }
 
 bool Physics::CheckCollision(Physics other)
@@ -327,7 +334,7 @@ sf::FloatRect Physics::GetAABB()
 void Physics::UpdateAcceleration() //used to update the object's acceleration as part of movement code.
 {
 	m_acceleration.x = 0;
-	m_acceleration.y += GRAVITY;
+	m_acceleration.y = GRAVITY;
 
 	
 	
