@@ -7,7 +7,7 @@ public:
 
     Grenade(int _whichPlayer);
     void FireGrenade(sf::Vector2f fireVel);
-
+    void HandleCollision(Physics& other);
     
 private:
     int whichPlayer;

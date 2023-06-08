@@ -20,3 +20,7 @@ void Grenade::FireGrenade(sf::Vector2f fireVel)
 	m_velocity = fireVel;
 }
 
+void Grenade::HandleCollision(Physics& other)
+{
+}
+

@@ -59,7 +59,6 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 
 	width = 0;
 
-	
 }
 
 void LevelScreen::Update(sf::Time frameTime)
@@ -89,7 +88,6 @@ void LevelScreen::Update(sf::Time frameTime)
 				playerOne.SetColliding(true);
 				platforms[i]->SetColliding(true);
 				playerOne.HandleCollision(*platforms[i]);
-				//platforms[i]->HandleCollision(playerOne);
 			}
 
 			if (platforms[i]->CheckCollision(playerTwo))
@@ -97,12 +95,29 @@ void LevelScreen::Update(sf::Time frameTime)
 				playerTwo.SetColliding(true);
 				platforms[i]->SetColliding(true);
 				playerTwo.HandleCollision(*platforms[i]);
-				// platforms[i]->HandleCollision(playerTwo);
 			}
-		}
-	
-	}
 
+			for (int g = 0; g < grenades.size(); g++)
+			{
+				if (grenades[g].CheckCollision(*platforms[i]))
+				{
+					grenades[g].HandleCollision(*platforms[i]);
+				}
+			}
+			for (int g = 0; g < grenades.size(); g++)
+			{
+				if (grenades[g].CheckCollision(playerOne))
+				{
+					grenades[g].HandleCollision(playerOne);
+				}
+
+				if (grenades[g].CheckCollision(playerTwo))
+				{
+					grenades[g].HandleCollision(playerTwo);
+				}
+			}
+		}	
+	}
 		endPanel.Update(frameTime);
 }
 
