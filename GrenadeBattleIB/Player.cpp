@@ -60,7 +60,7 @@ void Player::Draw(sf::RenderTarget& _target)
 
 	float faketime = 0;
 
-	for (uint16_t i = 0; i < pips.size(); ++i)
+	for (int i = 0; i < pips.size(); ++i)
 	{
 		pips[i].setPosition(GetPipPosition(faketime));
 		_target.draw(pips[i]);
@@ -92,7 +92,7 @@ void Player::UpdateAcceleration()
 		float axisX = sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::X);
 		//float axisY = sf::Joystick::getAxisPosition(playerOneController, sf::Joystick::Y);
 
-		float deadzone = 25;
+		float deadzone = 35;
 
 		if (abs(axisX) > deadzone)
 			m_acceleration.x = ACCEL * axisX / 100.0f;

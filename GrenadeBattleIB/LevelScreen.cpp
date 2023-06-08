@@ -56,9 +56,7 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 
 		width += 24;
 	}
-
 	width = 0;
-
 }
 
 void LevelScreen::Update(sf::Time frameTime)

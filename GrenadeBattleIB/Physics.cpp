@@ -15,7 +15,7 @@ Physics::Physics()
 	, m_velocity()
 	, m_acceleration(0, 0)
 	, GRAVITY(10000)
-	, ACCEL(10000)
+	, ACCEL(100)
 	, applyDrag(true)
 
 
@@ -243,7 +243,7 @@ void Physics::HandleCollision(Physics& other)
 	if (abs(depth.x) < abs(depth.y))
 	{
 		// move in x direction
-		newPos.x += depth.x*1.1f;
+		newPos.x += depth.x*1.5f;
 
 		m_velocity.x = 0;
 		m_acceleration.x = 0;
@@ -252,7 +252,7 @@ void Physics::HandleCollision(Physics& other)
 	else
 	{
 		//move in y
-		newPos.y += depth.y*1.1f;
+		newPos.y += depth.y*1.5f;
 
 		m_velocity.y = 0;
 		m_acceleration.y = 0;
