@@ -25,6 +25,9 @@ class Physics :
 public:
 	Physics();
 
+	sf::FloatRect GetAABB();
+
+
 	void PhysicsSelect(PhysicsType physics, sf::Time _frameTime);
 	void Update(sf::Time _frameTime);
 
@@ -57,7 +60,6 @@ private:
 
 	sf::Vector2f GetCollsionCentre();
 	float GetCircleColliderRadius();
-	sf::FloatRect GetAABB();
 
 
 	bool m_colliding;

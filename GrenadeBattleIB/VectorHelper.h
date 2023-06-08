@@ -15,6 +15,7 @@ namespace VectorHelper
 	sf::Vector3f CrossProduct(sf::Vector3f a, sf::Vector3f b);
 
 	sf::Vector3f GetReflection(sf::Vector3f incident, sf::Vector3f normal);
+	sf::Vector2f GetReflection(sf::Vector2f incident, sf::Vector2f normal);
 
 	sf::Vector3f GetNormal(sf::Vector3f one, sf::Vector3f two);
 	sf::Vector2f GetNormal(sf::Vector2f line);

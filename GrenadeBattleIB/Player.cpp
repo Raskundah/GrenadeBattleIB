@@ -2,7 +2,6 @@
 #include "AssetManager.h"
 #include "Physics.h"
 #include "Grenade.h";
-
 #include "LevelScreen.h"
 
 Player::Player(int playerNumber, LevelScreen* level)
@@ -61,7 +60,7 @@ void Player::Draw(sf::RenderTarget& _target)
 
 	float faketime = 0;
 
-	for (int i = 0; i < pips.size(); ++i)
+	for (uint16_t i = 0; i < pips.size(); ++i)
 	{
 		pips[i].setPosition(GetPipPosition(faketime));
 		_target.draw(pips[i]);
