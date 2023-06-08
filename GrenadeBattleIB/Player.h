@@ -37,7 +37,4 @@ protected:
         sf::Time shootCooldown;
         sf::Clock shootCooldownTimer;
         sf::Clock shootCooldowntimerTwo;
-        
-
-        
 };
