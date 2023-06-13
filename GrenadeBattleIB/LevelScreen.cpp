@@ -154,4 +154,5 @@ void LevelScreen::ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int
 	newNade.SetPosition(position);
 	newNade.FireGrenade(velocity);
 	grenades.push_back(newNade);
+
 }

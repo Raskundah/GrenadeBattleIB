@@ -14,8 +14,8 @@ Physics::Physics()
 	, m_twoFramesOldPos(GetPosition())
 	, m_velocity()
 	, m_acceleration(0, 0)
-	, GRAVITY(10000)
-	, ACCEL(100)
+	, GRAVITY(5000)
+	, ACCEL(3000)
 	, applyDrag(true)
 
 
@@ -36,7 +36,7 @@ void Physics::PhysicsSelect(PhysicsType physics, sf::Time _frameTime)
 		m_velocity = m_velocity + m_acceleration * _frameTime.asSeconds();
 
 		if(applyDrag)
-		m_velocity.x = m_velocity.x - m_velocity.x * DRAG_MULT * _frameTime.asSeconds();
+			m_velocity.x = m_velocity.x - m_velocity.x * DRAG_MULT * _frameTime.asSeconds();
 
 
 		UpdateAcceleration();

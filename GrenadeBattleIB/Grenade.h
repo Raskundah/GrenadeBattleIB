@@ -11,6 +11,8 @@ public:
     
 private:
     int whichPlayer;
-
+    bool shouldBeDeleted;
+    sf::Time expiryTime;
+    sf::Clock expiryClock;
 };
 

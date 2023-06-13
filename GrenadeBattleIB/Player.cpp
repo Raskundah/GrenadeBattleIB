@@ -3,6 +3,7 @@
 #include "Physics.h"
 #include "Grenade.h";
 #include "LevelScreen.h"
+#include "VectorHelper.h"
 
 Player::Player(int playerNumber, LevelScreen* level)
 	: Physics()
@@ -43,11 +44,13 @@ void Player::Update(sf::Time _frameTime)
 
 	//physics = PhysicsType::FORWARD_EULER;
 
-	pipVelocity = sf::Vector2f(sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::U) *100, sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::V) *100 ); 
+	pipVelocity = sf::Vector2f(sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::U) *20, sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::V) *20); 
+
+	//pipVelocity = VectorHelper::Normalise(pipVelocity);
 
 	//PhysicsSelect(physics, _frameTime);
 
-	if (sf::Joystick::isButtonPressed(m_playerNumber, 0) )
+	if ( abs(sf::Joystick::getAxisPosition(m_playerNumber, sf::Joystick::Z) < -30 ))
 	{
 		Shoot();
 	}
@@ -78,13 +81,15 @@ sf::Vector2f Player::GetPipPosition(float fakeTime) // This function is used to 
 	sf::Vector2f gravity(0, GRAVITY);
 
 		sf::Vector2f pipPos(gravity * fakeTime * fakeTime * 0.5f + pipVelocity * fakeTime + GetPosition());
+		
+		//pipPos = VectorHelper::Normalise(pipPos);
 
 		return pipPos;
 }
 
 void Player::UpdateAcceleration()
 {
-	Physics::UpdateAcceleration();
+	//Physics::UpdateAcceleration();
 	
 	if (sf::Joystick::isConnected(m_playerNumber)) // handles joystick input.
 	{

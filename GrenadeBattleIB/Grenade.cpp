@@ -39,29 +39,31 @@ void Grenade::HandleCollision(Physics& other)
 
         if (abs(depth.x) < abs(depth.y))
         {
-            line = topLeft = bottomLeft;
+            line = VectorHelper::Normalise(VectorHelper::GetNormal(topLeft - bottomLeft));
 
             //Move in x direction
             newPosition.x += depth.x * 2.0f;
-            m_velocity = VectorHelper::GetReflection(m_velocity, VectorHelper::Normalise(VectorHelper::GetNormal(line)));
+            m_velocity = VectorHelper::GetReflection(m_velocity, line);
 
            
         }
         else
         {
-            line = topLeft - topRight;
+            line = VectorHelper::Normalise(VectorHelper::GetNormal(topLeft - topRight));
 
             //Move in y direction
             newPosition.y += depth.y * 2.0f;
-            m_velocity = VectorHelper::GetReflection(m_velocity, VectorHelper::Normalise(VectorHelper::GetNormal(line)));
+            m_velocity = VectorHelper::GetReflection(m_velocity, line);
 
      
 
-            //Collision from above
+            /*Collision from above
             if (depth.y < 0)
             {
             }
+            */
         }
+
         SetPosition(newPosition);
     }
 }

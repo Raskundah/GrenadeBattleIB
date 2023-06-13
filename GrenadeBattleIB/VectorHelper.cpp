@@ -39,13 +39,13 @@ sf::Vector3f VectorHelper::CrossProduct(sf::Vector3f a, sf::Vector3f b)
 
 sf::Vector3f VectorHelper::GetReflection(sf::Vector3f incident, sf::Vector3f normal)
 {
-	return sf::Vector3f (incident - 2.0f * normal) * DotProduct(incident, normal);
+	return incident - 2.0f * normal * DotProduct(incident, normal);
 
 }
 
 sf::Vector2f VectorHelper::GetReflection(sf::Vector2f incident, sf::Vector2f normal)
 {
-	return sf::Vector2f(incident - 2.0f * normal) * DotProduct(incident, normal);
+	return incident - 2.0f * normal * DotProduct(incident, normal);
 }
 
 sf::Vector3f VectorHelper::GetNormal(sf::Vector3f one, sf::Vector3f two)
