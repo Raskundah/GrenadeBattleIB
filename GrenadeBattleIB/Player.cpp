@@ -10,7 +10,7 @@ Player::Player(int playerNumber, LevelScreen* level)
 	, m_playerNumber(playerNumber)
 	, pips()
 	, level(level)
-	, shootCooldown(sf::seconds(2.5f))
+	, shootCooldown(sf::seconds(1.0f))
 	
 {
 	for (int i = 0; i < 11; ++i)
@@ -89,7 +89,7 @@ sf::Vector2f Player::GetPipPosition(float fakeTime) // This function is used to 
 
 void Player::UpdateAcceleration()
 {
-	//Physics::UpdateAcceleration();
+	Physics::UpdateAcceleration();
 	
 	if (sf::Joystick::isConnected(m_playerNumber)) // handles joystick input.
 	{
