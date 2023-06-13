@@ -7,8 +7,11 @@
 
 
 Grenade::Grenade(int _whichPlayer)
-	: Physics()
-	, whichPlayer(_whichPlayer)
+    : Physics()
+    , whichPlayer(_whichPlayer)
+    , expiryTime(sf::seconds(2.5f))
+    , shouldBeDeleted(false)
+    , expiryClock()
 	
 {
 	m_sprite.setTexture(AssetManager::RequestTexture("Assets/grenade.png"));
@@ -66,5 +69,25 @@ void Grenade::HandleCollision(Physics& other)
 
         SetPosition(newPosition);
     }
+}
+
+bool Grenade::GetmarkedForDeletion()
+{
+    return shouldBeDeleted;
+}
+
+void  Grenade::SetMarkedForDeletion(bool value)
+{
+    shouldBeDeleted = value;
+}
+
+sf::Clock Grenade::GetClock()
+{
+    return expiryClock;
+}
+
+void Grenade::ResetClock()
+{
+    expiryClock.restart();
 }
 

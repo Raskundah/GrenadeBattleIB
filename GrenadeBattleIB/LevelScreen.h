@@ -21,6 +21,7 @@ public:
 
     void TriggerEndState(bool _win);
     void ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int playerID);
+    void CleanGrenades();
 
 
 private:
@@ -32,7 +33,8 @@ private:
     bool gameRunning;
 
     std::vector<Platform*> platforms;
-    std::vector<Grenade> grenades;
+    std::vector<Grenade*> grenades;
+
     
 };
 

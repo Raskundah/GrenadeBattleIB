@@ -70,7 +70,10 @@ void LevelScreen::Update(sf::Time frameTime)
 		playerTwo.Update(frameTime);
 		for (int i = 0; i < grenades.size(); ++i)
 		{
-			grenades[i].Update(frameTime);
+			grenades[i]->Update(frameTime);
+
+			if (grenades[i]->GetClock().getElapsedTime() > sf::seconds(2.5f))
+				grenades[i]->SetMarkedForDeletion(true);
 		}	
 		//default colllisiuon states
 
@@ -97,26 +100,28 @@ void LevelScreen::Update(sf::Time frameTime)
 
 			for (int g = 0; g < grenades.size(); g++)
 			{
-				if (grenades[g].CheckCollision(*platforms[i]))
+				if (grenades[g]->CheckCollision(*platforms[i]))
 				{
-					grenades[g].HandleCollision(*platforms[i]);
+					grenades[g]->HandleCollision(*platforms[i]);
 				}
 			}
 			for (int g = 0; g < grenades.size(); g++)
 			{
-				if (grenades[g].CheckCollision(playerOne))
+				if (grenades[g]->CheckCollision(playerOne))
 				{
-					grenades[g].HandleCollision(playerOne);
+					grenades[g]->HandleCollision(playerOne);
 				}
 
-				if (grenades[g].CheckCollision(playerTwo))
+				if (grenades[g]->CheckCollision(playerTwo))
 				{
-					grenades[g].HandleCollision(playerTwo);
+					grenades[g]->HandleCollision(playerTwo);
 				}
 			}
 		}	
 	}
 		endPanel.Update(frameTime);
+
+		CleanGrenades();
 }
 
 //draw all objects to game window
@@ -138,7 +143,7 @@ void LevelScreen::Draw(sf::RenderTarget& _target)
 
 	for (int i = 0; i < grenades.size(); ++i)
 	{
-		grenades[i].Draw(_target);
+		grenades[i]->Draw(_target);
 	}
 }
 
@@ -150,9 +155,23 @@ void LevelScreen::TriggerEndState(bool _win)
 
 void LevelScreen::ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int playerID)
 {
-	Grenade newNade(playerID);
-	newNade.SetPosition(position);
-	newNade.FireGrenade(velocity);
+	Grenade* newNade = new Grenade(playerID);
+	newNade->SetPosition(position);
+	newNade->FireGrenade(velocity);
 	grenades.push_back(newNade);
 
+}
+
+
+
+void LevelScreen::CleanGrenades()
+{
+	for (int i = grenades.size() - 1; i >= 0; --i)
+	{
+		if (grenades[i]->GetmarkedForDeletion())
+		{
+			delete grenades[i];
+			grenades.erase(grenades.begin() + i);
+		}
+	}
 }
