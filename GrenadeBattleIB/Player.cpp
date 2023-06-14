@@ -36,7 +36,6 @@ Player::Player(int playerNumber, LevelScreen* level)
 	collisionType = CollisionType::AABB;
 
 }
-
 void Player::Update(sf::Time _frameTime)
 {
 	Physics::Update(_frameTime);

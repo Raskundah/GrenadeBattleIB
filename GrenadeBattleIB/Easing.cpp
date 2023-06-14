@@ -9,3 +9,8 @@ sf::Vector2f Easing::QuadEaseIn(sf::Vector2f begin, sf::Vector2f change, float d
 {
 	return (change / (duration * duration)) * (time * time) + begin;
 }
+
+sf::Vector2f Easing::QuadEaseOut(sf::Vector2f begin, sf::Vector2f change, float duration, float time)
+{
+	return ((change / (duration * duration)) * (time * time)) + duration + begin ;
+}
