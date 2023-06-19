@@ -65,7 +65,7 @@ void LevelScreen::Update(sf::Time frameTime)
 	if (playerOne.GetLives() == 0)
 	{
 		gameRunning = false;
-		endPanel.StartAnimation();
+		endPanel.StartAnimation(); //Practical Task - Easing Function
 
 		endPanel.SetString("Player One Wins!");
 	}
@@ -73,7 +73,7 @@ void LevelScreen::Update(sf::Time frameTime)
 	if (playerTwo.GetLives() == 0)
 	{
 		gameRunning = false;
-		endPanel.StartAnimation();
+		endPanel.StartAnimation(); // Practical Task - Easing Function
 		endPanel.SetString("Player Two Wins");
 	}
 
