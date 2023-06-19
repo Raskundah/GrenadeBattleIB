@@ -22,6 +22,7 @@ public:
     void TriggerEndState(bool _win);
     void ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int playerID);
     void CleanGrenades();
+    void SetupUI();
 
 
 private:
@@ -31,6 +32,8 @@ private:
 
     EndPanel endPanel;
     bool gameRunning;
+
+    sf::Text playerOneHud, playerTwoHud;
 
     std::vector<Platform*> platforms;
     std::vector<Grenade*> grenades;

@@ -49,6 +49,7 @@ void Physics::PhysicsSelect(PhysicsType physics, sf::Time _frameTime)
 
 		m_velocity = m_velocity + m_acceleration * _frameTime.asSeconds();
 
+		if (applyDrag)
 		m_velocity.x = m_velocity.x - m_velocity.x * DRAG_MULT * _frameTime.asSeconds();
 
 		SetPosition(GetPosition() + m_velocity * _frameTime.asSeconds());
@@ -60,6 +61,7 @@ void Physics::PhysicsSelect(PhysicsType physics, sf::Time _frameTime)
 	{
 		m_velocity = m_velocity + m_acceleration * _frameTime.asSeconds();
 
+		if (applyDrag)
 		m_velocity.x = m_velocity.x - m_velocity.x * DRAG_MULT * _frameTime.asSeconds();
 
 
@@ -105,6 +107,7 @@ void Physics::PhysicsSelect(PhysicsType physics, sf::Time _frameTime)
 		//get new frames velocity using half frame velocity and updated acceleration
 		m_velocity = halfFrameVel + m_acceleration * _frameTime.asSeconds();
 
+		if (applyDrag)
 		m_velocity = m_velocity - m_velocity * DRAG_MULT * _frameTime.asSeconds();
 
 	}

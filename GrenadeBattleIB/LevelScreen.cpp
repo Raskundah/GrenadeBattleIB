@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Physics.h"
 
+
 LevelScreen::LevelScreen(Game* newGamePointer)
 	: Screen(newGamePointer)
 	, playerOne(0, this)
@@ -61,6 +62,23 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 
 void LevelScreen::Update(sf::Time frameTime)
 {
+	if (playerOne.GetLives() == 0)
+	{
+		gameRunning = false;
+		endPanel.StartAnimation();
+
+		endPanel.SetString("Player One Wins!");
+	}
+
+	if (playerTwo.GetLives() == 0)
+	{
+		gameRunning = false;
+		endPanel.StartAnimation();
+		endPanel.SetString("Player Two Wins");
+	}
+
+
+
 	if (gameRunning)
 	{
 
@@ -119,9 +137,15 @@ void LevelScreen::Update(sf::Time frameTime)
 			}
 		}	
 	}
-		endPanel.Update(frameTime);
+	else
+	{
+		{
+			endPanel.Update(frameTime);
+		}
+	}
 
 		CleanGrenades();
+		SetupUI();
 }
 
 //draw all objects to game window
@@ -174,4 +198,23 @@ void LevelScreen::CleanGrenades()
 			grenades.erase(grenades.begin() + i);
 		}
 	}
+}
+
+void LevelScreen::SetupUI()
+{
+	playerOneHud.setString(std::to_string(playerOne.GetLives()));
+	playerOneHud.setFillColor(sf::Color::Cyan);
+	playerOneHud.setOutlineThickness(2.0f);
+	playerOneHud.setOutlineColor(sf::Color::Black);
+	playerOneHud.setCharacterSize(22);
+	playerOneHud.setPosition(0, 20);
+	playerOneHud.setFont(AssetManager::RequestFont("Assets/dogica.ttf"));
+
+	playerTwoHud.setString(std::to_string(playerOne.GetLives()));
+	playerTwoHud.setFillColor(sf::Color::Cyan);
+	playerTwoHud.setOutlineThickness(2.0f);
+	playerTwoHud.setOutlineColor(sf::Color::Black);
+	playerTwoHud.setCharacterSize(22);
+	playerTwoHud.setPosition(1900, 20);
+	playerTwoHud.setFont(AssetManager::RequestFont("Assets/dogica.ttf"));
 }

@@ -69,6 +69,11 @@ void Grenade::HandleCollision(Physics& other)
 
         SetPosition(newPosition);
     }
+
+    if (dynamic_cast<Player*>(&other)->GetPlayerID() != whichPlayer)
+    {
+        dynamic_cast<Player*>(&other)->SetLives(-1);
+    }
 }
 
 bool Grenade::GetmarkedForDeletion()

@@ -4,6 +4,7 @@
 #include "Grenade.h";
 #include "LevelScreen.h"
 #include "VectorHelper.h"
+#include "Platform.h"
 
 Player::Player(int playerNumber, LevelScreen* level)
 	: Physics()
@@ -11,6 +12,8 @@ Player::Player(int playerNumber, LevelScreen* level)
 	, pips()
 	, level(level)
 	, shootCooldown(sf::seconds(1.0f))
+	, canJump(true)
+	, lifes(3)
 	
 {
 	for (int i = 0; i < 11; ++i)
@@ -73,6 +76,11 @@ void Player::Draw(sf::RenderTarget& _target)
 void Player::HandleCollision(Physics& other)
 {
 	Physics::HandleCollision(other);
+
+	if (dynamic_cast<Platform*>(&other) != nullptr)
+	{
+		canJump = true;
+	}
 }
 
 sf::Vector2f Player::GetPipPosition(float fakeTime) // This function is used to handle the prediction of grenade paths
@@ -103,6 +111,27 @@ void Player::UpdateAcceleration()
 		/*if (abs(axisY) > deadzone)
 			m_acceleration.y = axisY / 100.0f;*/
 	}
+
+	if(sf::Joystick::isButtonPressed(m_playerNumber, 0) && canJump)
+	{
+		m_velocity.y -= GRAVITY * 0.25f;
+		canJump = false;
+	}
+}
+
+int Player::GetLives()
+{
+	return lifes;
+}
+
+void Player::SetLives(int _lives)
+{
+	lifes = +_lives;
+}
+
+int Player::GetPlayerID()
+{
+	return m_playerNumber;
 }
 
 void Player::Shoot()

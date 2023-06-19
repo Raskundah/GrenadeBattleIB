@@ -18,7 +18,10 @@ public:
     sf::Vector2f GetPipPosition(float fakeTime);
 
     void UpdateAcceleration() override;
-    
+
+    int GetLives();
+    void SetLives(int _lives);
+    int GetPlayerID();
 
     void Shoot();
 
@@ -29,6 +32,10 @@ protected:
     int m_playerNumber;
 
     private:
+
+        bool canJump;
+
+        int lifes;
 
         LevelScreen* level;
 
