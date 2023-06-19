@@ -81,6 +81,7 @@ void LevelScreen::Update(sf::Time frameTime)
 
 	if (gameRunning)
 	{
+		SetupUI();
 
 		//update moving positions
 
@@ -146,7 +147,7 @@ void LevelScreen::Update(sf::Time frameTime)
 	}
 
 		CleanGrenades();
-		SetupUI();
+
 }
 
 //draw all objects to game window
