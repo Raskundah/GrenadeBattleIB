@@ -11,7 +11,7 @@ EndPanel::EndPanel(sf::RenderWindow* newWindow)
 	, animatingIn(false)
 	, animationClock()
 {
-	background.setTexture(AssetManager::RequestTexture("Assets/Graphics/Panel.png"));
+	background.setTexture(AssetManager::RequestTexture("Assets/Panel.png"));
 	background.setScale(5.0f, 5.0f);
 
 	title.setFont(AssetManager::RequestFont("Assets/dogica.ttf"));

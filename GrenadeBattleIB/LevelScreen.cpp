@@ -141,6 +141,7 @@ void LevelScreen::Update(sf::Time frameTime)
 	{
 		{
 			endPanel.Update(frameTime);
+			Reset();
 		}
 	}
 
@@ -217,4 +218,16 @@ void LevelScreen::SetupUI()
 	playerTwoHud.setCharacterSize(22);
 	playerTwoHud.setPosition(1900, 20);
 	playerTwoHud.setFont(AssetManager::RequestFont("Assets/dogica.ttf"));
+}
+
+void LevelScreen::Reset()
+{
+	if ((sf::Joystick::isButtonPressed(1, 0) || sf::Joystick::isButtonPressed(0, 0)) && !gameRunning)
+	{
+		endPanel.ResetPosition();
+		playerOne.SetLives(3);
+		playerTwo.SetLives(3);
+		gameRunning = true;
+
+	}
 }

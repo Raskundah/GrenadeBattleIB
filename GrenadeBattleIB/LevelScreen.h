@@ -24,6 +24,8 @@ public:
     void CleanGrenades();
     void SetupUI();
 
+    void Reset();
+
 
 private:
 
