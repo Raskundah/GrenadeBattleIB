@@ -16,7 +16,7 @@ Grenade::Grenade(int _whichPlayer)
 	
 {
 	m_sprite.setTexture(AssetManager::RequestTexture("Assets/grenade.png"));
-	m_sprite.setScale(sf::Vector2f(2.0f, 2.0f));
+	m_sprite.setScale(sf::Vector2f(0.5f, 0.5f));
 	applyDrag = false;
 }
 
@@ -71,14 +71,10 @@ void Grenade::HandleCollision(Physics& other)
         SetPosition(newPosition);
     }
 
-    if ((dynamic_cast<Player*>(&other) != nullptr))
+    if ((dynamic_cast<Player*>(&other) != nullptr) && !hitPlayer && dynamic_cast<Player*>(&other)->GetPlayerID() != whichPlayer)
     {
-        if (dynamic_cast<Player*>(&other))
-        {
-            dynamic_cast<Player*>(&other)->SetLives(-1);
-            hitPlayer = true;
-
-        }
+          hitPlayer = true;
+          shouldBeDeleted = true;
     }
 }
 
@@ -100,5 +96,10 @@ sf::Clock Grenade::GetClock()
 void Grenade::ResetClock()
 {
     expiryClock.restart();
+}
+
+int Grenade::GetPlayerID()
+{
+    return whichPlayer;
 }
 

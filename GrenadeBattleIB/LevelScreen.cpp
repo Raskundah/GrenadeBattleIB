@@ -62,7 +62,7 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 
 void LevelScreen::Update(sf::Time frameTime)
 {
-	if (playerOne.GetLives() == 0)
+	if (playerOne.GetLives() <= 0)
 	{
 		gameRunning = false;
 		endPanel.StartAnimation(); //Practical Task - Easing Function
@@ -70,7 +70,7 @@ void LevelScreen::Update(sf::Time frameTime)
 		endPanel.SetString("Player One Wins!");
 	}
 
-	if (playerTwo.GetLives() == 0)
+	if (playerTwo.GetLives() <= 0)
 	{
 		gameRunning = false;
 		endPanel.StartAnimation(); // Practical Task - Easing Function
@@ -129,11 +129,14 @@ void LevelScreen::Update(sf::Time frameTime)
 				if (grenades[g]->CheckCollision(playerOne))
 				{
 					grenades[g]->HandleCollision(playerOne);
+					playerOne.HandleCollision(*grenades[g]);
 				}
 
 				if (grenades[g]->CheckCollision(playerTwo))
 				{
 					grenades[g]->HandleCollision(playerTwo);
+					playerTwo.HandleCollision(*grenades[g]);
+
 				}
 			}
 		}	
@@ -153,6 +156,8 @@ void LevelScreen::Update(sf::Time frameTime)
 //draw all objects to game window
 
 void LevelScreen::Draw(sf::RenderTarget& _target)
+
+
 {
 	for (int i = 0; i < platforms.size(); ++i)
 	{
@@ -161,6 +166,8 @@ void LevelScreen::Draw(sf::RenderTarget& _target)
 
 	playerOne.Draw(_target);
 	playerTwo.Draw(_target);
+	_target.draw(playerOneHud);
+	_target.draw(playerTwoHud);
 
 	if (!gameRunning)
 	{
@@ -182,7 +189,7 @@ void LevelScreen::TriggerEndState(bool _win)
 void LevelScreen::ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int playerID)
 {
 	Grenade* newNade = new Grenade(playerID);
-	newNade->SetPosition(position.x, position.y - 10);
+	newNade->SetPosition(position.x, position.y - 20);
 	newNade->FireGrenade(velocity);
 	grenades.push_back(newNade);
 
@@ -209,7 +216,7 @@ void LevelScreen::SetupUI()
 	playerOneHud.setOutlineThickness(2.0f);
 	playerOneHud.setOutlineColor(sf::Color::Black);
 	playerOneHud.setCharacterSize(22);
-	playerOneHud.setPosition(0, 20);
+	playerOneHud.setPosition(50, 50);
 	playerOneHud.setFont(AssetManager::RequestFont("Assets/dogica.ttf"));
 
 	playerTwoHud.setString(std::to_string(playerOne.GetLives()));
@@ -217,7 +224,7 @@ void LevelScreen::SetupUI()
 	playerTwoHud.setOutlineThickness(2.0f);
 	playerTwoHud.setOutlineColor(sf::Color::Black);
 	playerTwoHud.setCharacterSize(22);
-	playerTwoHud.setPosition(1900, 20);
+	playerTwoHud.setPosition(1850, 50);
 	playerTwoHud.setFont(AssetManager::RequestFont("Assets/dogica.ttf"));
 }
 
@@ -229,6 +236,5 @@ void LevelScreen::Reset()
 		playerOne.SetLives(3);
 		playerTwo.SetLives(3);
 		gameRunning = true;
-
 	}
 }

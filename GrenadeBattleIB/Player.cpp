@@ -81,6 +81,12 @@ void Player::HandleCollision(Physics& other)
 	{
 		canJump = true;
 	}
+
+
+	if (dynamic_cast<Grenade*>(&other) != nullptr && dynamic_cast<Grenade*>(&other)->GetPlayerID() != m_playerNumber)
+	{		
+		lifes -= 1;
+	}
 }
 
 sf::Vector2f Player::GetPipPosition(float fakeTime) // This function is used to handle the prediction of grenade paths
@@ -126,7 +132,7 @@ int Player::GetLives()
 
 void Player::SetLives(int _lives)
 {
-	lifes = +_lives;
+	lifes += +_lives;
 }
 
 int Player::GetPlayerID()

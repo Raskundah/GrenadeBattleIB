@@ -123,6 +123,61 @@ void Physics::Update(sf::Time _frameTime)
 	PhysicsSelect(physics, _frameTime);
 }
 
+void Physics::Draw(sf::RenderTarget& _target)
+{
+	SpriteObject::Draw(_target);
+
+	bool drawCollider = true;
+
+	if (drawCollider)
+	{
+		switch (collisionType)
+		{
+		case CollisionType::CIRCLE:
+		{
+			sf::CircleShape circle;
+
+			float circleRadius = GetCircleColliderRadius();
+
+			sf::Vector2f shapePosition = GetCollsionCentre();
+			shapePosition.x -= circleRadius;
+			shapePosition.y -= circleRadius;
+
+			circle.setPosition(shapePosition);
+			circle.setRadius(GetCircleColliderRadius());
+			sf::Color collisionColor = sf::Color::Green;
+
+			if (m_colliding)
+				collisionColor = sf::Color::Red;
+
+			collisionColor.a = 100;
+			circle.setFillColor(collisionColor);
+			_target.draw(circle);
+		}
+		break;
+		case CollisionType::AABB:
+		{
+			sf::RectangleShape rectangle;
+			sf::FloatRect bounds = GetAABB();
+			rectangle.setPosition(bounds.left, bounds.top);
+			rectangle.setSize(sf::Vector2f(bounds.width, bounds.height));
+
+			sf::Color collisionColor = sf::Color::Green;
+
+			if (m_colliding)
+				collisionColor = sf::Color::Red;
+
+			collisionColor.a = 100;
+			rectangle.setFillColor(collisionColor);
+			_target.draw(rectangle);
+		}
+		break;
+		default:
+			break;
+		}
+	}
+}
+
 bool Physics::CheckCollision(Physics other)
 {
 	if (!m_isAlive || !other.m_isAlive)

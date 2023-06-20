@@ -30,6 +30,7 @@ public:
 
 	void PhysicsSelect(PhysicsType physics, sf::Time _frameTime);
 	void Update(sf::Time _frameTime);
+	void Draw(sf::RenderTarget& _target);
 
 	bool CheckCollision(Physics other);
 	void SetColliding(bool newColliding);

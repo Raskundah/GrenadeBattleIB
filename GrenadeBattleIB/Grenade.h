@@ -14,6 +14,7 @@ public:
 
     sf::Clock GetClock();
     void ResetClock();
+    int GetPlayerID();
     
 
     
