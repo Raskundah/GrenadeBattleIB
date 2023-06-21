@@ -127,22 +127,24 @@ void LevelScreen::Update(sf::Time frameTime)
 					grenades[g]->HandleCollision(*platforms[i]);
 				}
 			}
-			for (int g = 0; g < grenades.size(); g++)
-			{
-				if (grenades[g]->CheckCollision(playerOne))
-				{
-					grenades[g]->HandleCollision(playerOne);
-					playerOne.HandleCollision(*grenades[g]);
-				}
 
-				if (grenades[g]->CheckCollision(playerTwo))
-				{
-					grenades[g]->HandleCollision(playerTwo);
-					playerTwo.HandleCollision(*grenades[g]);
-
-				}
-			}
 		}	
+
+		for (int g = 0; g < grenades.size(); g++)
+		{
+			if (grenades[g]->CheckCollision(playerOne))
+			{
+				grenades[g]->HandleCollision(playerOne);
+				playerOne.HandleCollision(*grenades[g]);
+			}
+
+			if (grenades[g]->CheckCollision(playerTwo))
+			{
+				grenades[g]->HandleCollision(playerTwo);
+				playerTwo.HandleCollision(*grenades[g]);
+
+			}
+		}
 	}
 	else
 	{
@@ -213,13 +215,13 @@ void LevelScreen::CleanGrenades()
 			grenades.erase(grenades.begin() + i);
 
 			if (loopBreak)
-			{
-				grenades.clear();
-				loopBreak = false;
+			{				
 				break;
 			}
 		}
 	}
+
+
 }
 
 void LevelScreen::SetupUI()
@@ -232,7 +234,7 @@ void LevelScreen::SetupUI()
 	playerOneHud.setPosition(50, 50);
 	playerOneHud.setFont(AssetManager::RequestFont("Assets/dogica.ttf"));
 
-	playerTwoHud.setString(std::to_string(playerOne.GetLives()));
+	playerTwoHud.setString(std::to_string(playerTwo.GetLives()));
 	playerTwoHud.setFillColor(sf::Color::Cyan);
 	playerTwoHud.setOutlineThickness(2.0f);
 	playerTwoHud.setOutlineColor(sf::Color::Black);
@@ -246,8 +248,8 @@ void LevelScreen::Reset()
 	if ((sf::Joystick::isButtonPressed(1, 0) || sf::Joystick::isButtonPressed(0, 0)) && !gameRunning)
 	{
 		endPanel.ResetPosition();
-		playerOne.SetLives(3);
-		playerTwo.SetLives(3);
+		playerOne.ResetLives();
+		playerTwo.ResetLives();
 		gameRunning = true;
 	}
 }

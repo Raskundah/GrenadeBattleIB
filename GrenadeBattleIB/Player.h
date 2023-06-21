@@ -21,6 +21,7 @@ public:
 
     int GetLives();
     void SetLives(int _lives);
+    void ResetLives();
     int GetPlayerID();
 
     void Shoot();

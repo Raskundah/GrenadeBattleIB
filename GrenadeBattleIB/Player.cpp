@@ -167,6 +167,11 @@ void Player::SetLives(int _lives)
 	lifes += +_lives;
 }
 
+void Player::ResetLives()
+{
+	lifes = 3;
+}
+
 int Player::GetPlayerID()
 {
 	return m_playerNumber;
