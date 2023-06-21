@@ -191,7 +191,7 @@ void LevelScreen::TriggerEndState(bool _win)
 void LevelScreen::ShootGrenade(sf::Vector2f position, sf::Vector2f velocity, int playerID)
 {
 	Grenade* newNade = new Grenade(playerID);
-	newNade->SetPosition(position.x, position.y - 20);
+	newNade->SetPosition(position.x, position.y - 1);
 	newNade->FireGrenade(velocity);
 	grenades.push_back(newNade);
 

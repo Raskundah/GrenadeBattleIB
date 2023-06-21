@@ -18,9 +18,10 @@ Grenade::Grenade(int _whichPlayer)
 	m_sprite.setTexture(AssetManager::RequestTexture("Assets/grenade.png"));
 	m_sprite.setScale(sf::Vector2f(0.5f, 0.5f));
 	applyDrag = false;
+
+    collisionType = CollisionType::CIRCLE;
+
 }
-
-
 
 void Grenade::FireGrenade(sf::Vector2f fireVel)
 {
