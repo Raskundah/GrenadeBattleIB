@@ -103,3 +103,8 @@ int Grenade::GetPlayerID()
     return whichPlayer;
 }
 
+bool Grenade::GetHitPlayer()
+{
+    return hitPlayer;
+}
+

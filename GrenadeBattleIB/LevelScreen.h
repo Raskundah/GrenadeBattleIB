@@ -33,7 +33,7 @@ private:
     Player playerTwo;
 
     EndPanel endPanel;
-    bool gameRunning;
+    bool gameRunning, loopBreak;
 
     sf::Text playerOneHud, playerTwoHud;
 

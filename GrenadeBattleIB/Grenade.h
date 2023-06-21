@@ -16,6 +16,7 @@ public:
     void ResetClock();
     int GetPlayerID();
     
+    bool GetHitPlayer();
 
     
 private:

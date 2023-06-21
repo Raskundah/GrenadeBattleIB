@@ -292,39 +292,7 @@ sf::Vector2f Physics::GetCollisionDepth(Physics other) //calculates how much a c
 
 void Physics::HandleCollision(Physics& other)
 {
-	// const float JUMPSPEED = 100;
-
-	sf::Vector2f depth = GetCollisionDepth(other);
-
-	sf::Vector2f newPos = GetPosition();
-
-	if (abs(depth.x) < abs(depth.y))
-	{
-		// move in x direction
-		newPos.x += depth.x*1.5f;
-
-		m_velocity.x = 0;
-		m_acceleration.x = 0;
-	}
-
-	else
-	{
-		//move in y
-		newPos.y += depth.y*1.5f;
-
-		m_velocity.y = 0;
-		m_acceleration.y = 0;
-
-
-		/*if collided from above
-		if (depth.y < 0)
-		{
-			m_velocity.y = -24;
-		}
-
-		*/
-	}
-	SetPosition(newPos);
+	
 }
 
 

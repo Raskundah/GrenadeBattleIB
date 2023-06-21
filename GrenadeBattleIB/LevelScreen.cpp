@@ -12,6 +12,7 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 	, platforms()
 	, endPanel(newGamePointer->GetWindow())
 	, gameRunning(true)
+	, loopBreak(false)
 {
 	//default positions for non dynamically allocated and test objects.
 
@@ -81,6 +82,8 @@ void LevelScreen::Update(sf::Time frameTime)
 
 	if (gameRunning)
 	{
+		CleanGrenades();
+
 		SetupUI();
 
 		//update moving positions
@@ -149,7 +152,6 @@ void LevelScreen::Update(sf::Time frameTime)
 		}
 	}
 
-		CleanGrenades();
 
 }
 
@@ -201,10 +203,21 @@ void LevelScreen::CleanGrenades()
 {
 	for (int i = grenades.size() - 1; i >= 0; --i)
 	{
+		if (grenades[i]->GetHitPlayer())
+			loopBreak = true;
+
 		if (grenades[i]->GetmarkedForDeletion())
 		{
+			
 			delete grenades[i];
 			grenades.erase(grenades.begin() + i);
+
+			if (loopBreak)
+			{
+				grenades.clear();
+				loopBreak = false;
+				break;
+			}
 		}
 	}
 }
