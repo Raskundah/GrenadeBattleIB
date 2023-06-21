@@ -10,20 +10,20 @@ EndPanel::EndPanel(sf::RenderWindow* newWindow)
 	, window(newWindow)
 	, animatingIn(false)
 	, animationClock()
+	, doAnimate(true)
 {
 	background.setTexture(AssetManager::RequestTexture("Assets/Panel.png"));
-	background.setScale(5.0f, 5.0f);
+	background.setScale(10.0f, 5.0f);
 
 	title.setFont(AssetManager::RequestFont("Assets/dogica.ttf"));
-	title.setCharacterSize(70);
-	title.setFillColor(sf::Color::Black);
+	title.setCharacterSize(60);
+	title.setFillColor(sf::Color::Cyan);
 
 	message.setFont(AssetManager::RequestFont("Assets/dogica.ttf"));
 	message.setCharacterSize(30);
-	message.setString("Press A to restart,\nor ESCAPE to quit.");
-	message.setFillColor(sf::Color::Black);
+	message.setString("Press A to restart,\n \nor ESCAPE to quit.");
+	message.setFillColor(sf::Color::Cyan);
 
-	ResetPosition();
 }
 
 void EndPanel::Update(sf::Time frameTime)
@@ -36,10 +36,10 @@ void EndPanel::Update(sf::Time frameTime)
 
 		sf::Vector2f begin(xPos, yPos);
 		sf::Vector2f change(0, finalYPos - yPos);
-		float duration = 1.0f;
+		float duration = 2.0f;
 		float time = animationClock.getElapsedTime().asSeconds();
 
-		sf::Vector2f newPosition = Easing::QuadEaseOut(begin, change, duration, time);
+		sf::Vector2f newPosition = Easing::QuadEaseIn(begin, change, duration, time);
 		SetPosition(newPosition);
 
 		if (time >= duration)
@@ -53,8 +53,9 @@ void EndPanel::Update(sf::Time frameTime)
 
 void EndPanel::Draw(sf::RenderTarget& target)
 {
-	target.draw(background);
+	target.draw(background);	
 	target.draw(message);
+
 	target.draw(title);
 }
 
@@ -74,8 +75,9 @@ void EndPanel::SetPosition(sf::Vector2f newPosition)
 
 void EndPanel::StartAnimation()
 {
-	animatingIn = true;
-	animationClock.restart();
+
+		animatingIn = true;
+		animationClock.restart();
 
 }
 

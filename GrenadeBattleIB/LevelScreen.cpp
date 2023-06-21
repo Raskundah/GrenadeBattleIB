@@ -13,12 +13,14 @@ LevelScreen::LevelScreen(Game* newGamePointer)
 	, endPanel(newGamePointer->GetWindow())
 	, gameRunning(true)
 	, loopBreak(false)
+	, doAnimations(true)
+	, maxHeight(newGamePointer->GetWindow()->getSize().y)
+	, maxWidth(newGamePointer->GetWindow()->getSize().x)
 {
 	//default positions for non dynamically allocated and test objects.
 
 
-	int maxWidth = newGamePointer->GetWindow()->getSize().x;
-	int maxHeight = newGamePointer->GetWindow()->getSize().y;
+
 	int width = 0;
 	int height = 0;
 
@@ -65,23 +67,32 @@ void LevelScreen::Update(sf::Time frameTime)
 {
 	if (playerOne.GetLives() <= 0)
 	{
-		gameRunning = false;
-		endPanel.StartAnimation(); //Practical Task - Easing Function
-
-		endPanel.SetString("Player One Wins!");
+		if (doAnimations)
+		{
+			gameRunning = false;
+			endPanel.StartAnimation(); //Practical Task - Easing Function
+			endPanel.SetString("Player One Wins!");
+			doAnimations = false;
+		}
 	}
 
 	if (playerTwo.GetLives() <= 0)
 	{
-		gameRunning = false;
-		endPanel.StartAnimation(); // Practical Task - Easing Function
-		endPanel.SetString("Player Two Wins");
+		if (doAnimations)
+		{
+			gameRunning = false;
+			endPanel.StartAnimation(); // Practical Task - Easing Function
+			endPanel.SetString("Player Two Wins");
+			doAnimations = false;
+		}
 	}
 
 
 
 	if (gameRunning)
 	{
+
+		doAnimations = true;
 		CleanGrenades();
 
 		SetupUI();
@@ -149,6 +160,7 @@ void LevelScreen::Update(sf::Time frameTime)
 	else
 	{
 		{
+			SetupUI();
 			endPanel.Update(frameTime);
 			Reset();
 		}
@@ -175,6 +187,8 @@ void LevelScreen::Draw(sf::RenderTarget& _target)
 
 	if (!gameRunning)
 	{
+		_target.draw(playerOneHud);
+		_target.draw(playerTwoHud);
 		endPanel.Draw(_target);
 	}
 
@@ -187,6 +201,7 @@ void LevelScreen::Draw(sf::RenderTarget& _target)
 void LevelScreen::TriggerEndState(bool _win)
 {
 	gameRunning = false;
+
 	endPanel.StartAnimation();
 }
 
@@ -251,5 +266,7 @@ void LevelScreen::Reset()
 		playerOne.ResetLives();
 		playerTwo.ResetLives();
 		gameRunning = true;
+		playerOne.SetPosition(30, maxHeight - 70);
+		playerTwo.SetPosition(maxWidth - 100, maxHeight - 70);
 	}
 }

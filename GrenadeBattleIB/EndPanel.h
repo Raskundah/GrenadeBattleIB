@@ -27,7 +27,7 @@ private:
 	sf::Vector2f position;
 	sf::RenderWindow* window;
 
-	bool animatingIn;
+	bool animatingIn, doAnimate;
 	sf::Clock animationClock;
 
 };

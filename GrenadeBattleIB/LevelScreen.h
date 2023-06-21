@@ -33,7 +33,8 @@ private:
     Player playerTwo;
 
     EndPanel endPanel;
-    bool gameRunning, loopBreak;
+    bool gameRunning, loopBreak, doAnimations;
+    int maxHeight, maxWidth;
 
     sf::Text playerOneHud, playerTwoHud;
 
