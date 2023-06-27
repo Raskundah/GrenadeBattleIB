@@ -71,7 +71,7 @@ void LevelScreen::Update(sf::Time frameTime)
 		{
 			gameRunning = false;
 			endPanel.StartAnimation(); //Practical Task - Easing Function
-			endPanel.SetString("Player One Wins!");
+			endPanel.SetString("Player Two Wins!");
 			doAnimations = false;
 		}
 	}
@@ -82,7 +82,7 @@ void LevelScreen::Update(sf::Time frameTime)
 		{
 			gameRunning = false;
 			endPanel.StartAnimation(); // Practical Task - Easing Function
-			endPanel.SetString("Player Two Wins");
+			endPanel.SetString("Player One Wins");
 			doAnimations = false;
 		}
 	}
