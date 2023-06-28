@@ -19,9 +19,10 @@ public:
 	void SetPosition(float m_newX, float m_newY) ;
 
 
-	sf::Sprite m_sprite;
 
 protected:
+
+	sf::Sprite m_sprite;
 	bool m_isAlive;
 	sf::Vector2f m_position;
 };

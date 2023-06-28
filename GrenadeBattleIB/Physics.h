@@ -43,11 +43,6 @@ public:
 
 	void SetAlive(bool _alive);
 
-
-	sf::Vector2f m_CollisionOffset;
-	sf::Vector2f m_CollisionScale;
-	CollisionType collisionType;
-
 protected:
 
 	PhysicsType physics;
@@ -56,6 +51,10 @@ protected:
 	sf::Vector2f m_twoFramesOldPos;
 	sf::Vector2f m_acceleration;
 	bool applyDrag;
+
+	sf::Vector2f m_CollisionOffset;
+	sf::Vector2f m_CollisionScale;
+	CollisionType collisionType;
 
 private:
 
